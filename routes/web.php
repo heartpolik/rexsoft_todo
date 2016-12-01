@@ -10,7 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::GET('/showCategories', 'CategoriesController@renderCatList');
+
+Route::GET('/showTasks','TasksController@renderTaskList');
+
+Route::GET('/deleteTask', 'TasksController@destroy');
+
+Route::GET('/toggleTaskStatus', 'TasksController@toggleStatus');
+
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
