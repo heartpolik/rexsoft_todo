@@ -15,11 +15,15 @@ class CategoriesController extends Controller
             ->withCategories($categories)
             ->withTasks_count($tasks_count);
     }
+    public function renderCatOptionList(){
+        $categories = Category::all();
+        return view('categoryOptionsList')
+            ->withCategories($categories);
+    }
 
     public function create(Request $request){
         $category = new Category($request->all());
         $category->save();
-        return;
     }
 
     public function destroy(Request $request){

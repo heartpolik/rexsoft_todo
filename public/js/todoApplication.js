@@ -18,6 +18,16 @@ var renderCategories = function () {
             console.log('category list loaded!');
             document.getElementById('categoryListContainer').innerHTML = response;
             renderActiveCategory(getActiveCategory());
+            renderCategoryOptionsList();
+        }
+    })
+}
+var renderCategoryOptionsList = function () {
+    $.ajax({
+        url : '/showCategoryOptionsList',
+        success : function (response) {
+            console.log('category options loaded!');
+            document.getElementById('categoriesOptionContainer').innerHTML = response;
         }
     })
 }
@@ -35,6 +45,7 @@ var renderTasks = function (categoryID) {
 var toggleTaskStatus = function(id){
     console.log('task ' + id + ' wuz changed');
     $.ajax({
+        type : 'PUT',
         url : '/toggleTaskStatus',
         data : {
             taskId : id
@@ -46,6 +57,7 @@ var toggleTaskStatus = function(id){
 }
 var deleteTask = function (id) {
     $.ajax({
+        type: 'DELETE',
         url : '/deleteTask',
         data : {
             taskId : id
@@ -68,19 +80,20 @@ var showCategorizedTasks = function (id) {
 var createCategory = function () {
     console.log($('#categoryName').val());
     $.ajax({
-        method : 'POST',
+        type : 'POST',
         url : '/createCategory',
         data : {
             name : $('#categoryName').val()
         },
         successful : function () {
             console.log('new category added');
-            renderCategories();
         }
     })
+    renderCategories();
 }
 var deleteCategory = function(id){
     $.ajax({
+        type: 'DELETE',
         url : '/deleteCategory',
         data : {
             categoryId : id
@@ -94,6 +107,11 @@ var deleteCategory = function(id){
 
 // MAIN PROCESSING
 $(document).ready(function () {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     setActiveCategory(0);
     renderCategories();
     showCategorizedTasks(getActiveCategory());

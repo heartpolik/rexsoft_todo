@@ -11,19 +11,14 @@
 |
 */
 Route::GET('/showCategories', 'CategoriesController@renderCatList');
-
-Route::GET('/deleteCategory', 'CategoriesController@destroy');
-
+Route::DELETE('/deleteCategory', 'CategoriesController@destroy');
 Route::POST('/createCategory', 'CategoriesController@create');
+Route::GET('/showCategoryOptionsList', 'CategoriesController@renderCatOptionList');
 
 Route::POST('/createTask', 'TasksController@create');
-
 Route::GET('/showTasks','TasksController@renderTaskList');
-
-Route::GET('/deleteTask', 'TasksController@destroy');
-
-Route::GET('/toggleTaskStatus', 'TasksController@toggleStatus');
-
+Route::DELETE('/deleteTask', 'TasksController@destroy');
+Route::PUT('/toggleTaskStatus', 'TasksController@toggleStatus');
 
 Route::get('/', function () {
     return view('index');
