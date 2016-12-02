@@ -9,13 +9,18 @@ class TasksController extends Controller
 {
     public function renderTaskList(Request $request){
         $categoryId = $request->get('categoryId');
-        if ('*' == $categoryId) {
+        if (0 == $categoryId) {
             $tasks = Task::all();
         } else {
             $tasks = Task::all()
                 ->where('category_id', $categoryId);
         }
         return view('taskList')->withTasks($tasks);
+    }
+
+    public function create(Request $request){
+        $task = new Task($request);
+        $task->save();
     }
 
     public function destroy(Request $request){

@@ -10,7 +10,10 @@
 </head>
 <body>
 <div class="container">
-
+    <input type="text"
+           value="0"
+           hidden
+           id="currentCategoryValue">
     <!-- NAVBAR START -->
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -73,8 +76,13 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label>List Name</label>
-                        <input type="text" class="form-control" placeholder="List Name">
+                        <label>Category Name</label>
+                        <input type="text"
+                               required
+                               name="name"
+                               class="form-control"
+                               placeholder="Enter name here Name"
+                               id="categoryName">
                     </div>
                 </form>
             </div>
@@ -82,7 +90,7 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">
                     Close
                 </button>
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="btn btn-primary" onclick="createCategory()">
                     Save changes
                 </button>
             </div>

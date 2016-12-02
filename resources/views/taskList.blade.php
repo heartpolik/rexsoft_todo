@@ -6,7 +6,13 @@
            @if($task->checked) checked @endif
            onclick="toggleTaskStatus({{$task->id}})">
     <span class="text">{{$task->name}}</span>
-    <span class="label label-success label-@if($task->priority)danger @endif">{{$task->myCategory->name}}</span>
+    <span class="label label-success label-@if($task->priority)danger @endif">
+        @if($task->myCategory)
+            {{$task->myCategory->name}}
+            @else
+            UNCATEGORIZED
+        @endif
+    </span>
     <div class="tools">
         <i class="glyphicon glyphicon-pencil"
            onclick="editTask({{$task->id}})"></i>

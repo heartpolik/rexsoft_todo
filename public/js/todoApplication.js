@@ -1,12 +1,23 @@
 /**
  * Created by polik on 01.12.16.
  */
+var getActiveCategory = function () {
+    return $('#currentCategoryValue').val();
+}
+var setActiveCategory = function (categoryId) {
+    $('#currentCategoryValue').val(categoryId);
+}
+var renderActiveCategory = function () {
+    $('.category-list-item').removeClass('active');
+    $('#category-item-' + getActiveCategory()).addClass('active');
+}
 var renderCategories = function () {
     $.ajax({
         url : '/showCategories',
         success : function (response) {
             console.log('category list loaded!');
             document.getElementById('categoryListContainer').innerHTML = response;
+            renderActiveCategory(getActiveCategory());
         }
     })
 }
@@ -18,7 +29,6 @@ var renderTasks = function (categoryID) {
         },
         success : function (response) {
             document.getElementById('taskListContainer').innerHTML = response;
-            console.log('tasks list by ' + categoryID + ' category loaded!');
         }
     })
 }
@@ -27,11 +37,10 @@ var toggleTaskStatus = function(id){
     $.ajax({
         url : '/toggleTaskStatus',
         data : {
-            taskId : id,
-            categoryId : '*'
+            taskId : id
         },
         success : function () {
-            renderTasks('*');
+            renderTasks(getActiveCategory());
         }
     });
 }
@@ -42,7 +51,7 @@ var deleteTask = function (id) {
             taskId : id
         },
         success : function (response) {
-            renderTasks('*');
+            renderTasks(getActiveCategory());
             renderCategories();
         }
     })
@@ -50,15 +59,44 @@ var deleteTask = function (id) {
 var editTask = function (id) {
     console.log('task ' + id + ' wuz edited');
 }
-var categoryProcessing = function (id) {
-    console.log('click action works on ' + id + ' category');
+
+var showCategorizedTasks = function (id) {
     renderTasks(id);
+    setActiveCategory(id);
+    renderActiveCategory();
 };
+var createCategory = function () {
+    console.log($('#categoryName').val());
+    $.ajax({
+        method : 'POST',
+        url : '/createCategory',
+        data : {
+            name : $('#categoryName').val()
+        },
+        successful : function () {
+            console.log('new category added');
+            renderCategories();
+        }
+    })
+}
+var deleteCategory = function(id){
+    $.ajax({
+        url : '/deleteCategory',
+        data : {
+            categoryId : id
+        },
+        success : function () {
+            renderCategories();
+            showCategorizedTasks(0);
+        }
+    })
+}
 
 // MAIN PROCESSING
 $(document).ready(function () {
+    setActiveCategory(0);
     renderCategories();
-    renderTasks('*');
+    showCategorizedTasks(getActiveCategory());
 
 
 })

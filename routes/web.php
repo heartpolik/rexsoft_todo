@@ -12,6 +12,12 @@
 */
 Route::GET('/showCategories', 'CategoriesController@renderCatList');
 
+Route::GET('/deleteCategory', 'CategoriesController@destroy');
+
+Route::POST('/createCategory', 'CategoriesController@create');
+
+Route::POST('/createTask', 'TasksController@create');
+
 Route::GET('/showTasks','TasksController@renderTaskList');
 
 Route::GET('/deleteTask', 'TasksController@destroy');
