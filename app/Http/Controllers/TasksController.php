@@ -19,7 +19,7 @@ class TasksController extends Controller
     }
 
     public function create(Request $request){
-        $task = new Task($request);
+        $task = new Task($request->all());
         $task->save();
     }
 

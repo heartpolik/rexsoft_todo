@@ -9,10 +9,11 @@
        onclick="showCategorizedTasks({{$category->id}})"
        id="category-item-{{$category->id}}">
         <span class="badge">{{count($category->myTasks)}}</span>
-        <i class="glyphicon glyphicon-remove-circle"
-           onclick="deleteCategory({{$category->id}})">
-            </i>
         {{$category->name}}
+        <div class="col-xs-1 tools" style="z-index: 100">
+            <i class="glyphicon glyphicon-remove-circle"
+               onclick="deleteCategory({{$category->id}})">
+            </i></div>
     </a>
 
 @endforeach

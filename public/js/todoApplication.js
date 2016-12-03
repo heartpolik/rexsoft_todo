@@ -7,6 +7,14 @@ var getActiveCategory = function () {
 var setActiveCategory = function (categoryId) {
     $('#currentCategoryValue').val(categoryId);
 }
+var getCategoriesQuantity = function () {
+    $.ajax({
+        url : '/getCatQuantity',
+        success : function (response) {
+
+        }
+    });
+}
 var renderActiveCategory = function () {
     $('.category-list-item').removeClass('active');
     $('#category-item-' + getActiveCategory()).addClass('active');
@@ -29,7 +37,7 @@ var renderCategoryOptionsList = function () {
             console.log('category options loaded!');
             document.getElementById('categoriesOptionContainer').innerHTML = response;
         }
-    })
+    });
 }
 var renderTasks = function (categoryID) {
     $.ajax({
@@ -62,16 +70,37 @@ var deleteTask = function (id) {
         data : {
             taskId : id
         },
-        success : function (response) {
+        success : function () {
             renderTasks(getActiveCategory());
             renderCategories();
         }
     })
 }
+var createTask = function () {
+    console.log(document.getElementById('categoriesQuantity'));
+    if (0 === $('#categoriesQuantity').val()) {
+        alert ('There is no categories! Create, at least, one!');
+    } else {
+        $.ajax({
+            type: 'POST',
+            url: '/createTask',
+            data: {
+                name: $('#taskNameField').val(),
+                category_id: $('#categoriesOptionContainer').val(),
+                priority: $('#priorityField:checked').val(),
+            },
+            success: function () {
+                renderCategories();
+                renderTasks(getActiveCategory());
+                console.log('new task added');
+                // TODO: reset category name field
+            }
+        });
+    };
+}
 var editTask = function (id) {
     console.log('task ' + id + ' wuz edited');
 }
-
 var showCategorizedTasks = function (id) {
     renderTasks(id);
     setActiveCategory(id);
@@ -87,6 +116,7 @@ var createCategory = function () {
         },
         successful : function () {
             console.log('new category added');
+            // TODO: reset category name field
         }
     })
     renderCategories();
@@ -96,7 +126,7 @@ var deleteCategory = function(id){
         type: 'DELETE',
         url : '/deleteCategory',
         data : {
-            categoryId : id
+            categoryId : id,
         },
         success : function () {
             renderCategories();
@@ -112,6 +142,7 @@ $(document).ready(function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    console.log(getCategoriesQuantity());
     setActiveCategory(0);
     renderCategories();
     showCategorizedTasks(getActiveCategory());

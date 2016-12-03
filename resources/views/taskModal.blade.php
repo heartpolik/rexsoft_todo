@@ -11,7 +11,18 @@
                 <form>
                     <div class="form-group">
                         <label>Task</label>
-                        <input type="text" class="form-control" placeholder="Task">
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Task"
+                               id="taskNameField">
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox"
+                               name="priority"
+                               value="1"
+                        id="priorityField">
+                        <label> Set high priority</label>
+
                     </div>
                     <div class="form-group">
                         <label>Category</label>
@@ -25,10 +36,15 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">
+                <button type="button"
+                        class="btn btn-default"
+                        data-dismiss="modal">
                     Close
                 </button>
-                <button type="button" class="btn btn-primary">
+                <button type="button"
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        onclick="createTask()">
                     Save changes
                 </button>
             </div>

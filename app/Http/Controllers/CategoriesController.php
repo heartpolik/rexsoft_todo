@@ -15,6 +15,11 @@ class CategoriesController extends Controller
             ->withCategories($categories)
             ->withTasks_count($tasks_count);
     }
+    public function catQuantity(){
+        $count = Category::all()->count();
+        return $count;
+    }
+
     public function renderCatOptionList(){
         $categories = Category::all();
         return view('categoryOptionsList')

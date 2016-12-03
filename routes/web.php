@@ -14,6 +14,7 @@ Route::GET('/showCategories', 'CategoriesController@renderCatList');
 Route::DELETE('/deleteCategory', 'CategoriesController@destroy');
 Route::POST('/createCategory', 'CategoriesController@create');
 Route::GET('/showCategoryOptionsList', 'CategoriesController@renderCatOptionList');
+Route::GET('/getCatQuantity', 'CategoriesController@catQuantity');
 
 Route::POST('/createTask', 'TasksController@create');
 Route::GET('/showTasks','TasksController@renderTaskList');
