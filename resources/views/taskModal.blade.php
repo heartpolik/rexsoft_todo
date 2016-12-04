@@ -1,8 +1,14 @@
-<div id="create_task_modal" class="modal fade" tabindex="-1" role="dialog">
+<div id="create_task_modal"
+     class="modal fade"
+     tabindex="-1"
+     role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">Create New Task</h4>
@@ -20,16 +26,15 @@
                         <input type="checkbox"
                                name="priority"
                                value="1"
-                        id="priorityField">
+                               id="priorityField">
                         <label> Set high priority</label>
-
                     </div>
                     <div class="form-group">
                         <label>Category</label>
                         <select class="form-control"
                                 id="categoriesOptionContainer"
                                 name="category_id">
-{{--                            @include('cateegoryOptionsList')--}}
+                            {{-- @include('cateegoryOptionsList')--}}
                             {{--this stuff will be included with ajax--}}
                         </select>
                     </div>

@@ -11,6 +11,7 @@ class Task extends Model
         'name',
         'priority'
     ];
+
     public function myCategory(){
         return $this->belongsTo(Category::class, 'category_id');
     }
